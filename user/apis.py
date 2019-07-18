@@ -1,3 +1,7 @@
+import os
+import time
+
+from django.conf import settings
 from django.core.cache import cache
 from django.http import JsonResponse
 
@@ -87,3 +91,24 @@ def get_profile(request):
     user = request.user
 
     return render_json(data=user.profile.to_dic(exclued=['auto_play']))
+
+
+def upload_avatar(request):
+    user = request.user
+    avatar = request.FILES.get('avatar')
+
+
+    file_name = 'avatar-{}'.format(int(time.time()))
+    file_path = os.path.join(settings.MEDID_ROOT, file_name)
+
+    with open(file_path,'wb+') as d:
+        for chunk in avatar.chunks():
+            d.write(chunk)
+
+    return  render_json()
+
+
+
+
+
+
