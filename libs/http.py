@@ -9,7 +9,7 @@ def render_json(code=errors.OK,data =None):
         'code':code,
     }
     if data:
-        result['data'] = data.to_dict()
+        result['data'] = data
 
     json_dumps_params = {
         'separators':(',',':')

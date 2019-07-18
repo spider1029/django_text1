@@ -67,4 +67,20 @@ def login(request):
     # data ={'token':token}
     # return render_json(data=data)
 
-    return render_json(data=user)
+    return render_json(data=user.to_dict())
+
+
+def set_profile(request):
+    uid = request.POST.get('uid')
+    try:
+        user = User.objects.get(pk=uid)
+    except Exception as e:
+        print(e)
+
+    return None
+
+
+def get_profile(request):
+    user = request.user
+
+    return render_json(data=user.profile.to_dic(exclued=['auto_play']))
