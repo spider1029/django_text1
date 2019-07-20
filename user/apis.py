@@ -97,17 +97,27 @@ def upload_avatar(request):
     user = request.user
     avatar = request.FILES.get('avatar')
 
+    # file_name = 'avatar-{}'.format(int(time.time()))
+    # # file_path = os.path.join(settings.MEDID_ROOT, file_name)
+    # #
+    # # with open(file_path,'wb+') as d:
+    # #     for chunk in avatar.chunks():
+    # #         d.write(chunk)
+    # #
+    # #
+    # # #
+    # file_path = logics.upload_avatar(file_name, avatar)
+    #
+    # ret = logics.upload_qiniuyun(file_name,file_path)
+    #
+    # if ret:
+    #     return  render_json()
+    # else:
+    #     return  render_json(code=errors.AVATAR_UPLOAD_ERR)
 
-    file_name = 'avatar-{}'.format(int(time.time()))
-    file_path = os.path.join(settings.MEDID_ROOT, file_name)
+    logics.async_upload_avatar.delay(avatar)
 
-    with open(file_path,'wb+') as d:
-        for chunk in avatar.chunks():
-            d.write(chunk)
-
-    return  render_json()
-
-
+    return render_json()
 
 
 
