@@ -1,25 +1,88 @@
 from django.shortcuts import render
 
 # Create your views here.
+from common import errors
+from libs.http import render_json
+from social import logics
+from social.models import Swiped
+from user.models import User
+
+
 def recommend(request):
-    return None
+
+    user = request.user
+
+    rec_users = logics.recommend_users(user)
+
+    users= [u.to_dict() for u in rec_users]
+
+    return render_json(data=users)
 
 
 def like(request):
-    return None
+
+    user = request.user
+
+    sid = request.POST.get('sid')
+
+    if sid is None:
+        return render_json(code=errors.SDI_ERR)
+
+    sid = int(sid)
+
+    matched = logics.like_someone(uid=user.id, sid=sid)
+
+    return render_json(data={'matched':matched})
 
 
 def dislike(request):
-    return None
+    user = request.user
+
+    sid = request.POST.get('sid')
+
+    if sid is None:
+        return render_json(code=errors.SDI_ERR)
+
+    sid = int(sid)
+
+    Swiped.swipe(uid=user.id, sid=sid, mark='dislike')
+
+    return render_json()
 
 
 def superlike(request):
-    return None
+    user = request.user
+
+    sid = request.POST.get('sid')
+
+    if sid is None:
+        return render_json(code=errors.SDI_ERR)
+
+    sid = int(sid)
+
+    matched = logics.superlike_someone(uid=user.id, sid=sid)
+
+    return render_json(data={'matched':matched})
 
 
 def rewind(request):
-    return None
+    """
+    反悔接口
+    :param request:
+    :return:
+    """
+    user = request.user
+
+    logics.rewind(user)
+
+    return render_json()
 
 
 def liked_me(request):
-    return None
+    user = request.user
+
+    liked_list = logics.liked_me(user)
+
+    users = [u.to_dict() for u in User.objects.filter(id__in=liked_list)]
+
+    return render_json(data=users)
