@@ -8,3 +8,17 @@ YZX_SMS_PARAMS = {
 }
 
 REST_URL = 'https://open.ucpaas.com/ol/sms/sendsms'
+
+
+
+#七牛云的配置
+
+QN_access_key = 'A71SYt1Ku7ugPC5sE3WppMDxjkDrvUJ51MAFNiAk'
+QN_secret_key = '_icFETOVi4WkwREv_hJwTGIvVYvzAxYMb3OK-Ban'
+QN_bucket_name= 'spider_1029_django_text1'
+QN_HOST = 'http://puvccdie5.bkt.clouddn.com'
+
+
+
+#社交系统
+SWIPE_LIMIT = 3   #每日滑动后悔次数上限
