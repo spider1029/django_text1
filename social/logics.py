@@ -71,7 +71,7 @@ def rewind(user):
     if swipe_times >= config.SWIPE_LIMIT:
         raise errors.SwipeLimitError
 
-    swipe = Swiped.objects.filter(uid=user.id).latest('created_at')
+    swipe = Swiped.objects.filter(uid=user.id).latest('create_at')
 
     if swipe.mark in ['like', 'superlike']:
         Friend.cancel_friend(swipe.uid, swipe.sid)

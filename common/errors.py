@@ -29,21 +29,22 @@ class LogicException(Exception):
         self.code = code
 
 
-class LoginError(Exception):
+class LogicError(Exception):
     code = None
 
 
-class SwipeError(LoginError):
-    code =3002
+# class SwipeError(LoginError):
+#     code =3002
 
 
-def gen_logic_error(name, code ):
-    return type(name, (LoginError,), {'code':code})
+def gen_logic_error(name, code):
+    return type(name, (LogicError,), {'code': code})
 
 
+SidError = gen_logic_error('SidError', 3001)
+SwipeError = gen_logic_error('SwipeError', 3002)
+SwipeLimitError = gen_logic_error('SwipeLimitError', 3003)   # 滑动次数错误
 
-SwipeLimitError= gen_logic_error('SwipeLimitError',3003)   # 滑动次数错误
 
-
-
-
+# vip系统
+VipPermError = gen_logic_error("VipPermError", 4001)   #权限错误

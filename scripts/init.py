@@ -14,7 +14,7 @@ django.setup()
 
 
 from user.models import User
-# from vip.models import Vip, Permission, VipPermission
+from vip.models import Vip, Permission, VipPermissions
 
 
 last_names = (
@@ -82,7 +82,7 @@ def init_permission():
     )
 
     for name, desc in permissions:
-        perm, _ = Permission.objects.get_or_create(name=name, description=desc)
+        perm, _ = Permission.objects.get_or_create(name=name, desctiption=desc)
 
         print('create permission %s' % perm.name)
 
@@ -113,25 +113,25 @@ def create_vip_perm_relations():
     show_liked_me = Permission.objects.get(name='liked_me')
 
     # 给 VIP 1 分配权限
-    VipPermission.objects.get_or_create(vip_id=vip1.id, perm_id=vipflag.id)
-    VipPermission.objects.get_or_create(vip_id=vip1.id, perm_id=superlike.id)
+    VipPermissions.objects.get_or_create(vip_id=vip1.id, perm_id=vipflag.id)
+    VipPermissions.objects.get_or_create(vip_id=vip1.id, perm_id=superlike.id)
 
     # 给 VIP 2 分配权限
-    VipPermission.objects.get_or_create(vip_id=vip2.id, perm_id=vipflag.id)
-    VipPermission.objects.get_or_create(vip_id=vip2.id, perm_id=superlike.id)
-    VipPermission.objects.get_or_create(vip_id=vip2.id, perm_id=rewind.id)
+    VipPermissions.objects.get_or_create(vip_id=vip2.id, perm_id=vipflag.id)
+    VipPermissions.objects.get_or_create(vip_id=vip2.id, perm_id=superlike.id)
+    VipPermissions.objects.get_or_create(vip_id=vip2.id, perm_id=rewind.id)
 
     # 给 VIP 3 分配权限
-    VipPermission.objects.get_or_create(vip_id=vip3.id, perm_id=vipflag.id)
-    VipPermission.objects.get_or_create(vip_id=vip3.id, perm_id=superlike.id)
-    VipPermission.objects.get_or_create(vip_id=vip3.id, perm_id=rewind.id)
-    VipPermission.objects.get_or_create(vip_id=vip3.id, perm_id=anylocation.id)
-    VipPermission.objects.get_or_create(vip_id=vip3.id, perm_id=unlimit_like.id)
-    VipPermission.objects.get_or_create(vip_id=vip3.id, perm_id=show_liked_me.id)
+    VipPermissions.objects.get_or_create(vip_id=vip3.id, perm_id=vipflag.id)
+    VipPermissions.objects.get_or_create(vip_id=vip3.id, perm_id=superlike.id)
+    VipPermissions.objects.get_or_create(vip_id=vip3.id, perm_id=rewind.id)
+    VipPermissions.objects.get_or_create(vip_id=vip3.id, perm_id=anylocation.id)
+    VipPermissions.objects.get_or_create(vip_id=vip3.id, perm_id=unlimit_like.id)
+    VipPermissions.objects.get_or_create(vip_id=vip3.id, perm_id=show_liked_me.id)
 
 
 if __name__ == '__main__':
-    create_robots(1000)
-    # init_permission()
-    # init_vip()
-    # create_vip_perm_relations()
+    # create_robots(1000)
+    init_permission()
+    init_vip()
+    create_vip_perm_relations()

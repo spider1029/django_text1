@@ -5,6 +5,7 @@ from common import errors
 from libs.http import render_json
 from social import logics
 from social.models import Swiped
+from social.permissions import has_perm
 from user.models import User
 
 
@@ -50,6 +51,7 @@ def dislike(request):
     return render_json()
 
 
+@has_perm('superlike')
 def superlike(request):
     user = request.user
 
@@ -65,6 +67,7 @@ def superlike(request):
     return render_json(data={'matched':matched})
 
 
+@has_perm('rewind')
 def rewind(request):
     """
     反悔接口
@@ -78,6 +81,7 @@ def rewind(request):
     return render_json()
 
 
+@has_perm('liked_me')
 def liked_me(request):
     user = request.user
 
